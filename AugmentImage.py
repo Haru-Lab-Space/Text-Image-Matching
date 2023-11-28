@@ -24,16 +24,9 @@ class AugmentImage(nn.Module):
                          ]
         for func in list_function:
             temp = func(img)
-            print(func.__name__)
-            list_type.extend([func.__name__] * len(temp))
+            for j in range(len(temp)):
+                list_type.extend(func.__name__ + "_" + str(j))
             list.extend(temp)
-        # list.append(self.Resize(img))
-        # list.append(self.Grayscale(img))
-        # list.append(self.Normalize(img))
-        # list.append(self.RandomRotation(img))
-        # list.append(self.CenterCrop(img))
-        # list.append(self.GaussianBlur(img))
-        # list.append(self.GaussianNoise(img))
         return list, list_type
 # 1. Simple transformations
 # Resize
