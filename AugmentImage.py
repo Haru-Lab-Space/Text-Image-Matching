@@ -13,13 +13,26 @@ class AugmentImage(nn.Module):
 
     def forward(self, img):
         list = []
-        list.append(self.Resize(img))
-        list.append(self.Grayscale(img))
-        list.append(self.Normalize(img))
-        list.append(self.RandomRotation(img))
-        list.append(self.CenterCrop(img))
-        list.append(self.GaussianBlur(img))
-        list.append(self.GaussianNoise(img))
+        list_type = []
+        list_function = [self.Resize, 
+                         self.Grayscale,
+                         self.Normalize,
+                         self.RandomRotation,
+                         self.CenterCrop,
+                         self.GaussianBlur,
+                         self.GaussianNoise,
+                         ]
+        for func in list_function:
+            temp = func(img)
+            list_type.append([func.__name__] * len(temp))
+            list.append(temp)
+        # list.append(self.Resize(img))
+        # list.append(self.Grayscale(img))
+        # list.append(self.Normalize(img))
+        # list.append(self.RandomRotation(img))
+        # list.append(self.CenterCrop(img))
+        # list.append(self.GaussianBlur(img))
+        # list.append(self.GaussianNoise(img))
         return list
 # 1. Simple transformations
 # Resize
