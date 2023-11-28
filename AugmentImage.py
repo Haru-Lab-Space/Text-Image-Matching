@@ -10,6 +10,17 @@ from torch import nn
 class AugmentImage(nn.Module):
     def __init__(self):
         super(AugmentImage, self).__init__()
+
+    def forward(self, img):
+        list = []
+        list.append(self.Resize(img))
+        list.append(self.Grayscale(img))
+        list.append(self.Normalize(img))
+        list.append(self.RandomRotation(img))
+        list.append(self.CenterCrop(img))
+        list.append(self.GaussianBlur(img))
+        list.append(self.GaussianNoise(img))
+        return list
 # 1. Simple transformations
 # Resize
     def Resize(self, orig_img):
@@ -45,7 +56,7 @@ class AugmentImage(nn.Module):
         noise_imgs = [add_noise(T.ToTensor()(orig_img),noise_factor) for noise_factor in (0.3,0.6,0.9)]
         return [T.ToPILImage()(noise_img) for noise_img in noise_imgs]
 # Random Blocks
-    def resize(self, orig_img):
+    def RandomBlocks(self, orig_img):
         def add_random_boxes(img,n_k,size=32):
             h,w = size,size
             img = np.asarray(img)
@@ -59,7 +70,7 @@ class AugmentImage(nn.Module):
             return img
         return [add_random_boxes(orig_img,n_k=i) for i in (10,20)]
 # Central Region
-    def resize(self, orig_img):
+    def CentralRegion(self, orig_img):
         def add_central_region(img,size=32):
             h,w = size,size
             img = np.asarray(img)
@@ -68,3 +79,4 @@ class AugmentImage(nn.Module):
             img = Image.fromarray(img.astype('uint8'), 'RGB')
             return img
         return [add_central_region(orig_img,size=s) for s in (32,64)]
+    
