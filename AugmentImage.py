@@ -37,11 +37,11 @@ class AugmentImage(nn.Module):
 # 1. Simple transformations
 # Resize
     def Resize(self, orig_img):
-        resized_imgs = [T.Resize(size=size)(orig_img) for size in [32,128]]
-        return resized_imgs
+        return [T.Resize(size=size)(orig_img) for size in [32,128]]
+        
 # Gray Scale
     def Grayscale(self, orig_img):
-        return T.Grayscale()(orig_img)
+        return [T.Grayscale()(orig_img)]
 # Normalize
     def Normalize(self, orig_img):
         normalized_img = T.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))(T.ToTensor()(orig_img)) 
