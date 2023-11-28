@@ -24,8 +24,9 @@ class AugmentImage(nn.Module):
                          ]
         for func in list_function:
             temp = func(img)
-            list_type.append([func.__name__] * len(temp))
-            list.append(temp)
+            print(func.__name__)
+            list_type.extend([func.__name__] * len(temp))
+            list.extend(temp)
         # list.append(self.Resize(img))
         # list.append(self.Grayscale(img))
         # list.append(self.Normalize(img))
