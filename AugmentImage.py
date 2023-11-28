@@ -33,7 +33,7 @@ class AugmentImage(nn.Module):
         # list.append(self.CenterCrop(img))
         # list.append(self.GaussianBlur(img))
         # list.append(self.GaussianNoise(img))
-        return list
+        return list, list_type
 # 1. Simple transformations
 # Resize
     def Resize(self, orig_img):
