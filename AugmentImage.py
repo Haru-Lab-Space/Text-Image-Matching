@@ -28,6 +28,8 @@ class AugmentImage(nn.Module):
                 type = func.__name__ + "_" + str(j)
                 list_type.append(str(type))
             list.extend(temp)
+        list.append(img)
+        list_type.append("_origin")
         return list, list_type
 
 # 1. Simple transformations
@@ -40,7 +42,10 @@ class AugmentImage(nn.Module):
         return [T.Grayscale()(orig_img)]
 # Normalize
     def Normalize(self, orig_img):
-        normalized_img = T.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))(T.ToTensor()(orig_img)) 
+        t = T.ToTensor()(orig_img)
+        if t.size(0) < 3:
+            return t
+        normalized_img = T.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))(t) 
         return [T.ToPILImage()(normalized_img)]
 # Random Rotation
     def RandomRotation(self, orig_img):
