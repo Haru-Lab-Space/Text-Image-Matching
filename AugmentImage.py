@@ -26,7 +26,7 @@ class AugmentImage(nn.Module):
             temp = func(img)
             for j in range(len(temp)):
                 type = func.__name__ + "_" + str(j)
-                list_type.extend(str(type))
+                list_type.append(str(type))
             list.extend(temp)
             print(list_type)
         return list, list_type
