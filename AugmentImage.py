@@ -25,9 +25,11 @@ class AugmentImage(nn.Module):
         for func in list_function:
             temp = func(img)
             for j in range(len(temp)):
+                print(func.__name__)
                 list_type.extend(func.__name__ + "_" + str(j))
             list.extend(temp)
         return list, list_type
+
 # 1. Simple transformations
 # Resize
     def Resize(self, orig_img):
