@@ -44,7 +44,7 @@ class AugmentImage(nn.Module):
     def Normalize(self, orig_img):
         t = T.ToTensor()(orig_img)
         if t.size(0) < 3:
-            return t
+            return orig_img
         normalized_img = T.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))(t) 
         return [T.ToPILImage()(normalized_img)]
 # Random Rotation
